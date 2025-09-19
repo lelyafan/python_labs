@@ -1,6 +1,6 @@
-name = input().strip()
+name = input('ФИО: ').strip()
 fio = ' '.join(name.split())
 parts = fio.split()
 initials = ''.join([part[0].upper() for part in parts])
-print(f'{initials}')
+print(f'Инициалы: {initials}')
 print(f'Длина (символов): {len(name)}')
