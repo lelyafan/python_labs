@@ -54,6 +54,7 @@ print(flatten([[1], [], [2, 3]]))
 print(flatten([[1, 2], "ab"]))
 ```
 ![flatten](./images/lab02/flatten.png)
+![тест](./images/lab02/ITOG1.png)
 
 ## Задание B
 
@@ -118,6 +119,7 @@ print(col_sums([[0, 0], [0, 0]]))
 print(col_sums([[1, 2], [3]]))
 ```
 ![col_sums](./images/lab02/col_sums.png)
+![тест](./images/lab02/ITOG2.png)
 
 ## Задание C
 ```python
@@ -136,3 +138,4 @@ t = ("Иванов Иван Иванович", "BIVT-25", 4.6)
 print(format_record(t))
 ```
 ![format_record](./images/lab02/fio.png)
+![тест](./images/lab02/ITOG3.png)
