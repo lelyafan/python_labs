@@ -171,7 +171,7 @@ print(tokenize("по-настоящему круто"))
 print(tokenize("2025 год"))
 print(tokenize("emoji 😀 не слово"))
 ```
-[token](./images/lab03/token.png)
+![token](./images/lab03/token.png)
 
 ``` python
 def count_freq(tokens: list[str]) -> dict[str, int]:
@@ -196,8 +196,8 @@ print(count_freq(["bb","aa","bb","aa","cc"]))
 print(top_n(count_freq(["a","b","a","c","b","a"])))
 print(top_n(count_freq(["bb","aa","bb","aa","cc"])))
 ```
-[count_top](./images/lab03/count_top.png)
-[ИТОГИ](./images/lab03/test.png)
+![count_top](./images/lab03/count_top.png)
+![ИТОГИ](./images/lab03/test.png)
 
 ## Задание B
 ``` python
@@ -248,4 +248,4 @@ print("Топ-5:")
 for y in top:
     print(y[0] + ': ' + str(y[1]))
 ```
-[ИТОГИ](./images/lab03/text.png)
+![ИТОГИ](./images/lab03/text.png)
