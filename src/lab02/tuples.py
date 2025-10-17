@@ -15,7 +15,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
         return res
     except:
         return 'ValueError'
-a = ("Иванов Иван Иванович", "BIVT-25", 4.6)
+a = ("Иванов Иван Иванович", "BIVT-25", 4)
 b = ("Петров Пётр", "IKBO-12", 5.0)
 c = ("Петров Пётр Петрович", "IKBO-12", 5.0)
 d = ("  сидорова  анна   сергеевна ", "ABB-01", 3.999)
