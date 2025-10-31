@@ -73,7 +73,7 @@ def generate_csv_report(input_file: str, output_file: str) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Чтение отчета из CSV файла')
-    parser.add_argument('--csv', dest='csv_file', default='lib/check.csv', help='Путь к CSV файлу с отчетом')
+    parser.add_argument('--csv', dest='csv_file', default='data/check.csv', help='Путь к CSV файлу с отчетом')
     # создает аргумент ArgumentParser
 
 
