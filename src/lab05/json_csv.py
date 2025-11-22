@@ -39,5 +39,5 @@ def csv_to_json(csv_path: str, json_path: str) -> None:
     with open(json_path, 'w', encoding='utf-8') as jf:
         json.dump(lt_rows, jf, ensure_ascii=False, indent=2)
 
-json_to_csv('C:\Users\lazar\Desktop\python_labs\data\samples\people.json', 'C:\Users\lazar\Desktop\python_labs\data\out\people_from_json.csv')
-csv_to_json('C:\Users\lazar\Desktop\python_labs\data\samples\people.csv', 'C:\Users\lazar\Desktop\python_labs\data\out\people_from_csv.json')
+json_to_csv('C:/Users/lazar/Desktop/python_labs/data/samples/people.json', 'C:/Users/lazar/Desktop/python_labs/data/out/people_from_json.csv')
+csv_to_json('C:/Users/lazar/Desktop/python_labs/data/samples/people.csv', 'C:/Users/lazar/Desktop/python_labs/data/out/people_from_csv.json')

@@ -33,4 +33,4 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
     except csv.Error as e:
         raise ValueError(f"Ошибка чтения CSV: {e}")
     
-csv_to_xlsx('C:\Users\lazar\Desktop\python_labs\data\samples\people.csv', 'C:\Users\lazar\Desktop\python_labs\data\out\people.xlsx')
+csv_to_xlsx('C:/Users/lazar/Desktop/python_labs/data/samples/people.csv', 'C:/Users/lazar/Desktop/python_labs/data/out/gitpeople.xlsx')
