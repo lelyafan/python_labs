@@ -14,6 +14,10 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
 print(read_text("C:/Users/lazar/Desktop/python_labs/lib/meow.txt"))
 
 def write_csv(rows: list[tuple | list], path: str | Path, header: tuple[str, ...] | None = None) -> None:
+    p = Path(path)
+    if p.suffix.lower() != ".csv":
+        raise ValueError
+    
     with open(path, 'w', newline="", encoding='utf-8') as file:
         w= writer(file)
         if (header != None): w.writerows(header)
