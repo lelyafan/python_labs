@@ -454,3 +454,103 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
     
 csv_to_xlsx('C:\Users\lazar\Desktop\python_labs\data\samples\people.csv', 'C:\Users\lazar\Desktop\python_labs\data\out\people.xlsx')
 ```
+
+# Лабораторная работа #6
+## cli_text.py
+``` python
+import argparse
+from text_stats import tokenize, count_freq, top_n
+
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI‑утилиты лабораторной №6")
+    subparsers = parser.add_subparsers(dest="command")
+
+    # подкоманда cat - вывод файла
+    cat_parser = subparsers.add_parser("cat", help="Вывести содержимое файла")
+    cat_parser.add_argument("--input", required=True, help="путь к файлу")
+    cat_parser.add_argument("-n", action="store_true", help="Нумеровать строки")
+
+    # подкоманда stats - анализ
+    stats_parser = subparsers.add_parser("stats", help="Частоты слов")
+    stats_parser.add_argument("--input", required=True, help="путь к файлу")
+    stats_parser.add_argument("--top", type=int, default=5, help="топ слов")
+
+    args = parser.parse_args()
+
+    if args.command == "cat":
+        try:
+            with open(args.input, encoding="utf-8") as f:
+                # нумеруем с 1 в формате номер: строка
+                for i, line in enumerate(f, start=1):
+                    if args.n:
+                        print(f"{i}: {line.rstrip()}")
+                    else:
+                        print(line.rstrip())
+        except FileNotFoundError:
+            parser.error("файл не найден")
+        except Exception as e:
+            parser.error("ошибка при чтении файла")
+
+    #
+    elif args.command == "stats":
+        try:
+            with open(args.input, encoding="utf-8") as f:
+                text = f.read()
+            tokens = tokenize(text)
+            freqs = count_freq(tokens)
+            for word, count in top_n(freqs, args.top):
+                print(f"{word}: {count}")
+        except FileNotFoundError:
+            parser.error(f"Файл '{args.input}' не найден")
+        except Exception as e:
+            parser.error(f"Ошибка при анализе файла: {e}")
+
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## cli_convert.py
+``` python
+import argparse
+from pathlib import Path
+from json_csv import json_to_csv, csv_to_json
+from csv_xlsx import csv_to_xlsx  
+
+def main():
+    parser = argparse.ArgumentParser(description="Конвертер данных между форматами")
+    subparsers = parser.add_subparsers(dest="command", help="Доступные команды конвертации")
+
+    # JSON → CSV
+    json_to_csv_parser = subparsers.add_parser("json_to_csv", help="Конвертировать JSON в CSV")
+    json_to_csv_parser.add_argument("--in", dest="input", required=True, help="Входной JSON файл")
+    json_to_csv_parser.add_argument("--out", dest="output", required=True, help="Выходной CSV файл")
+
+    # CSV → JSON
+    csv_to_json_parser = subparsers.add_parser("csv_to_json", help="Конвертировать CSV в JSON")
+    csv_to_json_parser.add_argument("--in", dest="input", required=True, help="Входной CSV файл")
+    csv_to_json_parser.add_argument("--out", dest="output", required=True, help="Выходной JSON файл")
+
+    # CSV → XLSX
+    csv_to_xlsx_parser = subparsers.add_parser("csv_to_xlsx", help="Конвертировать CSV в XLSX")
+    csv_to_xlsx_parser.add_argument("--in", dest="input", required=True, help="Входной CSV файл")
+    csv_to_xlsx_parser.add_argument("--out", dest="output", required=True, help="Выходной XLSX файл")
+
+    args = parser.parse_args()
+
+    if args.command == "json_to_csv":
+        json_to_csv(json_path=args.input, csv_path=args.output)
+
+    elif args.command == "csv_to_json":
+        csv_to_json(csv_path=args.input, json_path=args.output)
+
+    elif args.command == "csv_to_xlsx":
+        csv_to_xlsx(csv_path=args.input, xlsx_path=args.output)
+
+if __name__ == "__main__":
+    main()
+```

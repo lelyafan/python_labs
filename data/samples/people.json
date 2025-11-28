@@ -1,1 +1,1 @@
-[{"name": "Ivan", "age": 28, "city": "Kazan"}, {"name": "Maria", "age": 22, "city": "Novosibirsk"}]
+[{"name": "Ivan", "age": 28, "city": "Kazan"}, {"name": "Maria", "age": 22, "city": null}]
