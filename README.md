@@ -1,3 +1,132 @@
+# Лабораторная работа №8
+## Models
+```python
+dataclasses import dataclass
+from datetime import date, datetime
+
+
+DATE_FORMAT = "%Y-%m-%d"
+
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str
+    group: str
+    gpa: float
+
+    @staticmethod
+    def _validate_birthdate(value: str) -> date:
+        try:
+            return datetime.strptime(value, DATE_FORMAT).date()
+        except ValueError:
+            raise ValueError(
+                f"Некорректный формат даты '{value}'. Ожидается {DATE_FORMAT}"
+            )
+
+    @staticmethod
+    def _validate_gpa(value: float) -> float:
+        try:
+            gpa_value = float(value)
+        except (TypeError, ValueError):
+            raise ValueError("Средний балл должен быть числом")
+
+        if not 0 <= gpa_value <= 5:
+            raise ValueError("Средний балл должен быть в диапазоне от 0 до 5")
+        return gpa_value
+
+    def __post_init__(self) -> None:
+        self._birthdate_dt = self._validate_birthdate(self.birthdate)
+        self.gpa = self._validate_gpa(self.gpa)
+
+    def age(self) -> int:
+        today = date.today()
+        years = today.year - self._birthdate_dt.year
+        if (today.month, today.day) < (
+            self._birthdate_dt.month,
+            self._birthdate_dt.day,
+        ):
+            years -= 1
+        return years
+
+    def to_dict(self):
+        return {
+            "fio": self.fio,
+            "birthdate": self.birthdate,
+            "group": self.group,
+            "gpa": self.gpa,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            fio=data["fio"],
+            birthdate=data["birthdate"],
+            group=data["group"],
+            gpa=data["gpa"],
+        )
+
+    # @classmethod
+    # def from_dict(data):
+    #     return Student(
+    #         fio=data["fio"],
+    #         birthdate=data["birthdate"],
+    #         group=data["group"],
+    #         gpa=data["gpa"],
+    #     )
+
+    def __str__(self) -> str:
+        return f"{self.fio} ({self.group}), {self.age()} лет, GPA {self.gpa:.2f}"
+```
+## SerSialize
+```python
+import json
+from pathlib import Path
+
+from models import Student
+
+DATA_DIR = Path(__file__).parent.parent
+students = [
+    Student(
+        fio="Иванов Иван Иванович", birthdate="2000-05-15", group="ИТ-101", gpa=4.5
+    ),
+    Student(
+        fio="Петрова Анна Сергеевна", birthdate="2001-03-20", group="ИТ-101", gpa=4.8
+    ),
+    Student(
+        fio="Сидоров Алексей Петрович", birthdate="1999-12-10", group="ФИ-201", gpa=3.9
+    ),
+]
+
+
+def students_to_json(students, path: str | Path) -> None:
+    output_path = Path(path)
+    data = [student.to_dict() for student in students]
+    with output_path.open("w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+students_to_json(students, "src/lab08/students_output.json")
+
+
+def students_from_json(path: str | Path):
+    input_path = Path(path)
+    if not input_path.exists():
+        raise FileNotFoundError(f"Файл не найден: {input_path}")
+    with input_path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    if not isinstance(data, list):
+        raise ValueError("Ожидается список студентов в JSON")
+    return [Student.from_dict(item) for item in data]
+
+
+students = students_from_json("src/lab08/students_output.json")
+for student in students:
+    print(student)
+```
+![стиль](./images/lab08/blackk.png)
+![](./images/lab08/result.png)
+
 # Лабораторная работа №1
 
 ## Задание 1
