@@ -124,7 +124,9 @@ students = students_from_json("src/lab08/students_output.json")
 for student in students:
     print(student)
 ```
+## стиль
 ![стиль](./images/lab08/blackk.png)
+
 ![](./images/lab08/result.png)
 
 # Лабораторная работа №1
