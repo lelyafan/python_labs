@@ -74,3 +74,7 @@ class Student:
 
     def __str__(self) -> str:
         return f"{self.fio} ({self.group}), {self.age()} лет, GPA {self.gpa:.2f}"
+    
+
+s1 = Student("a  a a", '2020-01-01', 'b', 5.0)
+print(Student.__dict__)
